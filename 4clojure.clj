@@ -173,3 +173,15 @@
 (= (#(take % ((fn fib [i j] (lazy-seq (cons i (fib j (+ i j))))) 1 1)) 3) '(1 1 2))
 (= (#(take % ((fn fib [i j] (lazy-seq (cons i (fib j (+ i j))))) 1 1)) 6) '(1 1 2 3 5 8))
 (= (#(take % ((fn fib [i j] (lazy-seq (cons i (fib j (+ i j))))) 1 1)) 8) '(1 1 2 3 5 8 13 21))
+
+; 27 Palindrome Detector
+; (false? (__ '(1 2 3 4 5)))
+; (true? (__ "racecar"))
+; (true? (__ [:foo :bar :foo]))
+; (true? (__ '(1 1 3 3 1 1)))
+; (false? (__ '(:a :b :c)))
+(false? ((fn [xs] (= (reverse xs) (vec xs))) '(1 2 3 4 5)))
+(true? (#(= (reverse %) (vec %)) "racecar"))
+(true? (#(= (reverse %) (vec %)) [:foo :bar :foo]))
+(true? (#(= (reverse %) (vec %)) '(1 1 3 3 1 1)))
+(false? (#(= (reverse %) (vec %)) '(:a :b :c)))
