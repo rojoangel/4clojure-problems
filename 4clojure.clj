@@ -201,3 +201,18 @@
 (= (apply str ((fn [xs] (reduce #(if (= %2 (last %1)) %1 (conj %1 %2)) [] xs)) "Leeeeeerrroyyy")) "Leroy")
 (= ((fn compress-seq [xs] (reduce (fn [acc x] (if (= x (last acc)) acc (conj acc x))) [] xs)) [1 1 2 3 3 2 2 3]) '(1 2 3 2 3))
 (= ((fn [xs] (reduce #(if (= %2 (last %1)) %1 (conj %1 %2)) [] xs)) [[1 2] [1 2] [3 4] [1 2]]) '([1 2] [3 4] [1 2]))
+
+; 31 Pack a Sequence
+; (= (__ [1 1 2 1 1 1 3 3]) '((1 1) (2) (1 1 1) (3 3)))
+; (= (__ [:a :a :b :b :c]) '((:a :a) (:b :b) (:c)))
+; (= (__ [[1 2] [1 2] [3 4]]) '(([1 2] [1 2]) ([3 4])))
+(fn compress-seq [xs] (reduce (fn [acc x] (if (= x (last (last acc)))
+                                            (reverse (conj (reverse (butlast acc)) (conj (last acc) x)))
+                                            (reverse (conj (reverse acc) (conj nil x))))) nil xs))
+
+;32 Duplicate a Sequence
+; (= (__ [1 2 3]) '(1 1 2 2 3 3))
+; (= (__ [:a :a :b :b]) '(:a :a :a :a :b :b :b :b))
+; (= (__ [[1 2] [3 4]]) '([1 2] [1 2] [3 4] [3 4]))
+; (= (__ [[1 2] [3 4]]) '([1 2] [1 2] [3 4] [3 4]))
+(fn duplicate-a-seq [xs] (reduce (fn [acc x] (conj acc x x)) [] xs))
