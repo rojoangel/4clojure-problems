@@ -185,3 +185,19 @@
 (true? (#(= (reverse %) (vec %)) [:foo :bar :foo]))
 (true? (#(= (reverse %) (vec %)) '(1 1 3 3 1 1)))
 (false? (#(= (reverse %) (vec %)) '(:a :b :c)))
+
+; 29 Get the Caps
+; (= (__ "HeLlO, WoRlD!") "HLOWRD")
+; (empty? (__ "nothing"))
+; (= (__ "$#A(*&987Zf") "AZ")
+(= ((fn [xs] (apply str (filter #(Character/isUpperCase %) xs))) "HeLlO, WoRlD!") "HLOWRD")
+(empty? ((fn [xs] (apply str (filter #(Character/isUpperCase %) xs))) "nothing"))
+(= ((fn [xs] (apply str (filter #(Character/isUpperCase %) xs))) "$#A(*&987Zf") "AZ")
+
+; 30 Compress a Sequence
+; (= (apply str (__ "Leeeeeerrroyyy")) "Leroy")
+; (= (__ [1 1 2 3 3 2 2 3]) '(1 2 3 2 3))
+; (= (__ [[1 2] [1 2] [3 4] [1 2]]) '([1 2] [3 4] [1 2]))
+(= (apply str ((fn [xs] (reduce #(if (= %2 (last %1)) %1 (conj %1 %2)) [] xs)) "Leeeeeerrroyyy")) "Leroy")
+(= ((fn compress-seq [xs] (reduce (fn [acc x] (if (= x (last acc)) acc (conj acc x))) [] xs)) [1 1 2 3 3 2 2 3]) '(1 2 3 2 3))
+(= ((fn [xs] (reduce #(if (= %2 (last %1)) %1 (conj %1 %2)) [] xs)) [[1 2] [1 2] [3 4] [1 2]]) '([1 2] [3 4] [1 2]))
