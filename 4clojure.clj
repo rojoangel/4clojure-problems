@@ -264,3 +264,9 @@
       (recur (inc current) (conj (vec acc) current)))))
 (fn [i j]
   (take-while #(< % j) (iterate inc i)))
+
+; 35 Local bindings
+; (= __ (let [x 5] (+ 2 x)))
+; (= __ (let [x 3, y 10] (- y x)))
+; (= __ (let [x 21] (let [y 3] (/ x y))))
+7
