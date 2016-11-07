@@ -186,6 +186,31 @@
 (true? (#(= (reverse %) (vec %)) '(1 1 3 3 1 1)))
 (false? (#(= (reverse %) (vec %)) '(:a :b :c)))
 
+; 28 Flatten a Sequence
+; (= (__ '((1 2) 3 [4 [5 6]])) '(1 2 3 4 5 6))
+; (= (__ ["a" ["b"] "c"]) '("a" "b" "c"))
+; (= (__ '((((:a))))) '(:a))
+(fn my-flatten [xs]
+  (loop [xs' xs
+         acc nil]
+    (if (empty? xs')
+      acc
+      (let [x (first xs')]
+        (if (coll? x)
+          (recur (next xs') (concat acc (my-flatten x)))
+          (recur (next xs') (conj (vec acc) x)))))))
+
+(fn my-flatten [xs]
+  (loop [xs' xs
+         acc nil]
+    (if (empty? xs')
+      acc
+      (let [x (first xs')]
+        (recur (next xs')
+               (if (coll? x)
+                 (concat acc (my-flatten x))
+                 (conj (vec acc) x)))))))
+
 ; 29 Get the Caps
 ; (= (__ "HeLlO, WoRlD!") "HLOWRD")
 ; (empty? (__ "nothing"))
