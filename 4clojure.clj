@@ -252,3 +252,15 @@
   (mapcat (fn [x] (repeat i x)) xs))
 (fn [xs i]
   (mapcat #(repeat i %) xs))
+
+; 34 Implement range
+; (= (__ 1 4) '(1 2 3))
+; (= (__ -2 2) '(-2 -1 0 1))
+; (= (__ 5 8) '(5 6 7))
+(fn my-range [i j]
+  (loop [current i acc nil]
+    (if (>= current j)
+      acc
+      (recur (inc current) (conj (vec acc) current)))))
+(fn [i j]
+  (take-while #(< % j) (iterate inc i)))
