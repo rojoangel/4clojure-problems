@@ -270,3 +270,57 @@
 ; (= __ (let [x 3, y 10] (- y x)))
 ; (= __ (let [x 21] (let [y 3] (/ x y))))
 7
+
+; 36 Let it Be
+; (= 10 (let __ (+ x y)))
+; (= 4 (let __ (+ y z)))
+; (= 1 (let __ z))
+[x 7 y 3 z 1]
+
+; 37 Regular Expressions
+; (= __ (apply str (re-seq #"[A-Z]+" "bA1B3Ce ")))
+(= "ABC" (apply str (re-seq #"[A-Z]+" "bA1B3Ce ")))
+
+; 38 Maximum value
+; (= (__ 1 8 3 4) 8)
+; (= (__ 30 20) 30)
+; (= (__ 45 67 11) 67)
+(fn
+  [& nums]
+  (reduce #(if (> %1 %2) %1 %2) nums))
+
+(fn
+  [& nums]
+  (first (reverse (sort nums))))
+
+(comp first reverse sort list)
+
+(comp last sort list)
+
+; 39 Interleave Two Seqs
+; (= (__ [1 2 3] [:a :b :c]) '(1 :a 2 :b 3 :c))
+; (= (__ [1 2] [3 4 5 6]) '(1 3 2 4))
+; (= (__ [1 2 3 4] [5]) [1 5])
+; (= (__ [30 20] [25 15]) [30 25 20 15])
+(fn my-interleave
+  [xs ys]
+  (loop [xs xs
+         ys ys
+         interleaved []]
+    (if (or (not (seq xs)) (not (seq ys)))
+      interleaved
+      (let [[x & xs'] xs
+            [y & ys'] ys]
+        (recur xs' ys' (conj (conj interleaved x) y))))))
+
+#(mapcat vector %1 %2)
+
+; 40 Interpose a Seq
+; (= (__ 0 [1 2 3]) [1 0 2 0 3])
+; (= (apply str (__ ", " ["one" "two" "three"])) "one, two, three")
+; (= (__ :z [:a :b :c :d]) [:a :z :b :z :c :z :d])
+#(butlast (interleave %2 (repeat %1)))
+
+(fn
+  [i xs]
+  (butlast (interleave xs (repeat i))))
