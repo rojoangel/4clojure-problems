@@ -324,3 +324,31 @@
 (fn
   [i xs]
   (butlast (interleave xs (repeat i))))
+
+; 41 Drop Every Nth Item
+; (= (__ [1 2 3 4 5 6 7 8] 3) [1 2 4 5 7 8])
+; (= (__ [:a :b :c :d :e :f] 2) [:a :c :e])
+; (= (__ [1 2 3 4 5 6] 4) [1 2 3 5 6])
+(fn
+  [xs i]
+  (mapcat identity (partition (dec i) i nil xs)))
+(fn
+  [xs i]
+  (flatten (partition (dec i) i nil xs)))
+(fn
+  [xs i]
+  (flatten (partition-all (dec i) i xs)))
+
+; 42 Factorial Fun
+; (= (__ 1) 1)
+; (= (__ 3) 6)
+; (= (__ 5) 120)
+; (= (__ 8) 40320)
+#(reduce * (range 1 (inc %)))
+
+; 43 Reverse interleave
+; (= (__ [1 2 3 4 5 6] 2) '((1 3 5) (2 4 6)))
+; (= (__ (range 9) 3) '((0 3 6) (1 4 7) (2 5 8)))
+; (= (__ (range 10) 5) '((0 5) (1 6) (2 7) (3 8) (4 9)))
+(fn [xs i]
+  (apply map list (partition i xs)))
