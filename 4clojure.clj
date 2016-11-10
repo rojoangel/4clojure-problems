@@ -352,3 +352,23 @@
 ; (= (__ (range 10) 5) '((0 5) (1 6) (2 7) (3 8) (4 9)))
 (fn [xs i]
   (apply map list (partition i xs)))
+
+; 44 Rotate Sequence
+; (= (__ 2 [1 2 3 4 5]) '(3 4 5 1 2))
+; (= (__ -2 [1 2 3 4 5]) '(4 5 1 2 3))
+; (= (__ 6 [1 2 3 4 5]) '(2 3 4 5 1))
+; (= (__ 1 '(:a :b :c)) '(:b :c :a))
+; (= (__ -4 '(:a :b :c)) '(:c :a :b))
+(fn [i xs]
+  (take (count xs) (drop (mod i (count xs)) (cycle xs)))) ; the key for this to work is mod
+(fn [i xs]
+  (let [elem-count (count xs)]
+    (take elem-count (drop (mod i elem-count) (cycle xs)))))
+(fn [i xs]
+  (let [j (mod i (count xs))]
+    (concat (drop j xs)
+            (take j xs))))
+
+; 45 Intro to iterate
+; (= __ (take 5 (iterate #(+ 3 %) 1)))
+'(1 4 7 10 13)
