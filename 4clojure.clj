@@ -372,3 +372,40 @@
 ; 45 Intro to iterate
 ; (= __ (take 5 (iterate #(+ 3 %) 1)))
 '(1 4 7 10 13)
+
+; 46 Flipping out
+; (= 3 ((__ nth) 2 [1 2 3 4 5]))
+; (= true ((__ >) 7 8))
+; (= 4 ((__ quot) 2 8))
+; (= [1 2 3] ((__ take) [1 2 3 4 5] 3))
+#(fn [& args]
+   (apply %1 (reverse args)))
+(fn [f] #(f %2 %1))
+#(comp (partial apply %) reverse list)
+
+; 47 Contain Yourself
+; (contains? #{4 5 6} __)
+; (contains? [1 1 1 1 1] __)
+; (contains? {4 :a 2 :b} __)
+; (not (contains? [1 2 4] __))
+4
+
+; 48 Intro to some
+; (= __ (some #{2 7 6} [5 6 7 8]))
+; (= __ (some #(when (even? %) %) [5 6 7 8]))
+6
+
+; 49 Split a sequence
+; (= (__ 3 [1 2 3 4 5 6]) [[1 2 3] [4 5 6]])
+; (= (__ 1 [:a :b :c :d]) [[:a] [:b :c :d]])
+; (= (__ 2 [[1 2] [3 4] [5 6]]) [[[1 2] [3 4]] [[5 6]]])
+#(vector
+  (take %1 %2)
+  (drop %1 %2))
+
+(fn [i xs]
+  (vector
+   (take i xs)
+   (drop i xs)))
+
+(juxt take drop)
