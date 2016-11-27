@@ -47,3 +47,36 @@
              (if (= i (count (last acc)))
                (reverse (conj (reverse acc) (conj '() j)))
                (reverse (conj (reverse (butlast acc)) (reverse (conj (reverse (last acc)) j)))))) '() xs)))
+
+; 55 Count Occurrences
+; (= (__ [1 1 2 3 2 1 1]) {1 4, 2 2, 3 1})
+; (= (__ [:b :a :b :a :b]) {:a 2, :b 3})
+; (= (__ '([1 2] [1 3] [1 3])) {[1 2] 1, [1 3] 2})
+
+; recursive solution
+(fn count-ocurrences [xs]
+  (loop [xs (sort xs) result {}]
+    (let [fst (first xs)
+          equals-fst? #(= % (first xs))]
+      (if (> (count xs) 0)
+        (recur (drop-while equals-fst? xs) (assoc result fst (count (take-while equals-fst? xs))))
+        result))))
+
+; reduce solution
+(fn count-ocurrences [xs]
+  (reduce
+   (fn [acc x]
+     (if (acc x) ; this works for maps
+       (assoc acc x (inc (acc x)))
+       (assoc acc x 1)))
+   {} xs))
+
+ ; group-by solution
+ (fn count-occurrences [xs]
+   (into {} (map #(vector (first %) (count (last %))) (group-by identity xs))))
+
+ ; group-by + destructuring solution
+ (fn count-occurrences [xs]
+   (into {} (map
+             (fn [[key values]] (vector key (count values)))
+             (group-by identity xs))))
