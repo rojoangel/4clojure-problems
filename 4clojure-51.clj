@@ -80,3 +80,17 @@
    (into {} (map
              (fn [[key values]] (vector key (count values)))
              (group-by identity xs))))
+
+; 56 Find Distinct Items
+; (= (__ [1 2 1 3 1 2 4]) [1 2 3 4])
+; (= (__ [:a :a :b :b :c :c]) [:a :b :c])
+; (= (__ '([2 4] [1 2] [1 3] [1 3])) '([2 4] [1 2] [1 3]))
+; (= (__ (range 50)) (range 50))
+
+; reduce solution
+(fn distinct-items [xs]
+  (reduce (fn [acc x]
+            (if (some #(= x %) acc)
+              acc
+              (conj acc x)))
+          [] xs))
