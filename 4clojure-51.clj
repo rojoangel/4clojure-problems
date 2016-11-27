@@ -94,3 +94,9 @@
               acc
               (conj acc x)))
           [] xs))
+
+; 57 Simple Recursion
+; (= __ ((fn foo [x] (when (> x 0) (conj (foo (dec x)) x))) 5))
+
+; (conj (conj (conj (conj (conj nil 1) 2) 3) 4) 5)
+'(5 4 3 2 1)
