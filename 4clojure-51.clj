@@ -108,3 +108,11 @@
 ; (= "HELLO" ((__ #(.toUpperCase %) #(apply str %) take) 5
 (fn [& fs]
   (reduce (fn [f g] (fn [& args] (f (apply g args)))) fs))
+
+; 59 Juxtaposition
+; (= [21 6 1] ((__ + max min) 2 3 5 1 6 4))
+; (= ["HELLO" 5] ((__ #(.toUpperCase %) count) "hello"))
+; (= [2 6 4] ((__ :a :c :b) {:a 2, :b 4, :c 6, :d 8 :e 10}))
+(fn [& fns]
+  (fn [& args]
+    (map #(apply % args) fns)))
