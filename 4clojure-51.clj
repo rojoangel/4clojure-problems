@@ -135,3 +135,11 @@
 ; (= (__ [:foo :bar] ["foo" "bar" "baz"]) {:foo "foo", :bar "bar"})
 (fn construct-map [ks vs]
   (into (sorted-map) (map vector ks vs)))
+
+; 62 Re-implement Iterate
+; (= (take 5 (__ #(* 2 %) 1)) [1 2 4 8 16])
+; (= (take 100 (__ inc 0)) (take 100 (range)))
+; (= (take 9 (__ #(inc (mod % 3)) 1)) (take 9 (cycle [1 2 3])))
+(fn my-iterate [f x]
+  (lazy-seq
+   (cons x (my-iterate f (f x)))))
