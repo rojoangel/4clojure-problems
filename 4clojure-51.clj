@@ -116,3 +116,15 @@
 (fn [& fns]
   (fn [& args]
     (map #(apply % args) fns)))
+
+; 60 Sequence Reductions
+; (= (take 5 (__ + (range))) [0 1 3 6 10])
+; (= (__ conj [1] [2 3 4]) [[1] [1 2] [1 2 3] [1 2 3 4]])
+; (= (last (__ * 2 [3 4 5])) (reduce * 2 [3 4 5]) 120)
+(fn my-reduction
+  ([f xs]
+   (my-reduction f (first xs) (next xs))) ;; use next since it returns nil instead of '()
+  ([f acc xs]
+   (lazy-seq (cons acc
+                   (if xs    ;; stop sequencing
+                     (my-reduction f (f acc (first xs)) (next xs)))))))
