@@ -158,3 +158,9 @@
        (assoc m key (conj (get m key []) value))))
    {}
    (map vector (map f xs) xs)))
+
+; 64 Intro to Reduce
+; (= 15 (reduce __ [1 2 3 4 5]))
+; (=  0 (reduce __ []))
+; (=  6 (reduce __ 1 [2 3]))
++
