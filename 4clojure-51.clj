@@ -186,3 +186,14 @@
    :list
    (= [:m 2] (last (conj xs [:m 1] [:m 2])))
    :vector))
+
+; 66 Greatest Common Divisor
+; (= (__ 2 4) 2)
+; (= (__ 10 5) 5)
+; (= (__ 5 7) 1)
+; (= (__ 1023 858) 33)
+(fn gcd [x y]
+  (first
+   (drop-while
+    #(not (and (= 0 (mod y %)) (= 0 (mod x %))))
+    (reverse (range 1 (inc (min x y)))))))
