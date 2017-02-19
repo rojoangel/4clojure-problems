@@ -208,3 +208,12 @@
          (fn [prime-candidate]
            (every? #(not (= 0 (mod prime-candidate %))) (range 2 prime-candidate))) ; range up to prime-candidate removing 0 & 1
          (drop 2 (range))))) ; infinite range removing 0 & 1
+
+; 68 Recurring Theme
+; (= __
+;  (loop [x 5
+;         result []]
+;    (if (> x 0)
+;      (recur (dec x) (conj result (+ 2 x)))
+;      result)))
+[7 6 5 4 3]
