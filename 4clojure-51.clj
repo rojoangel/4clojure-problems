@@ -262,3 +262,9 @@
 ;   (-> [2 5 4 1 3 6] (reverse) (rest) (sort) (__))
 ;   5)
 last
+
+; 72 Rearranging Code: ->>
+; (= (__ (map inc (take 3 (drop 2 [2 5 4 1 3 6]))))
+;   (->> [2 5 4 1 3 6] (drop 2) (take 3) (map inc) (__))
+;   11)
+apply +
