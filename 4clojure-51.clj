@@ -236,3 +236,23 @@
                      %1
                      (map identity %2)) ; generates map-entries
             ms)))
+
+; 70 Word Sorting
+; (= (__  "Have a nice day.")
+;   ["a" "day" "Have" "nice"])
+; (= (__  "Clojure is a fun language!")
+;   ["a" "Clojure" "fun" "is" "language"])
+; (= (__  "Fools fall for foolish follies.")
+;   ["fall" "follies" "foolish" "Fools" "for"])
+
+;; solution defining remove-punctuation
+; (fn my-sort [str]
+;  (let [remove-punctuation
+;    (fn [str]
+;      (clojure.string/replace str #"[^a-zA-Z]" ""))]
+;    (sort-by
+;      clojure.string/lower-case
+;      (map remove-punctuation (clojure.string/split str #" ")))))
+
+(fn my-sort [str]
+  (sort-by clojure.string/lower-case (clojure.string/split str #"[^a-zA-Z]")))
