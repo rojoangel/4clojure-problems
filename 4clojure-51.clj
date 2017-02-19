@@ -197,3 +197,14 @@
    (drop-while
     #(not (and (= 0 (mod y %)) (= 0 (mod x %))))
     (reverse (range 1 (inc (min x y)))))))
+
+; 67 Prime Numbers
+; (= (__ 2) [2 3])
+; (= (__ 5) [2 3 5 7 11])
+; (= (last (__ 100)) 541)
+(fn prime-numbers [n]
+  (take n
+        (filter
+         (fn [prime-candidate]
+           (every? #(not (= 0 (mod prime-candidate %))) (range 2 prime-candidate))) ; range up to prime-candidate removing 0 & 1
+         (drop 2 (range))))) ; infinite range removing 0 & 1
