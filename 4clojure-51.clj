@@ -256,3 +256,9 @@
 
 (fn my-sort [str]
   (sort-by clojure.string/lower-case (clojure.string/split str #"[^a-zA-Z]")))
+
+; 71 Rearranging Code: ->
+; (= (__ (sort (rest (reverse [2 5 4 1 3 6]))))
+;   (-> [2 5 4 1 3 6] (reverse) (rest) (sort) (__))
+;   5)
+last
